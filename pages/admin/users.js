@@ -1,9 +1,8 @@
-import {Heading, VStack} from "@chakra-ui/react";
 import AdminLayout from "../../components/admin/AdminLayout";
-import Head from "next/head";
-import AdminOverviewController from "../../components/admin/AdminOverviewController";
+import {Heading, VStack} from "@chakra-ui/react";
+import UserController from "../../components/admin/user/UserController";
 import {withSessionSsr} from "../../lib/session/withSession";
-
+import prisma from "../../lib/prisma";
 
 
 export const getServerSideProps = withSessionSsr(
@@ -23,26 +22,34 @@ export const getServerSideProps = withSessionSsr(
                 }
             }
         }
-        return {
-            props: {
+
+        const users = await prisma.User.findMany({
 
             }
+        )
+
+
+        return {
+            props: {
+                user: user,
+                users: users
+            }
+
         }
     }
-)
+);
 
-export default function AdminOverview(props) {
+export default function users(props){
     return (
         <>
-            <Head>
-                <title>Overview</title>
-            </Head>
             <AdminLayout>
                 <VStack>
-                    <Heading>Overview</Heading>
-                    <AdminOverviewController/>
+                    <Heading>Users</Heading>
+                    <UserController users={props.users}/>
+
                 </VStack>
             </AdminLayout>
+
         </>
     )
 }

@@ -6,8 +6,6 @@ import Head from "next/head";
 export const getServerSideProps = withSessionSsr(
     async function getServerSideProps({ req, res }) {
         const user = req.session.user;
-        console.log(user);
-        console.log(typeof user);
         if (typeof user === "undefined") {
             return {
                 props: {}
@@ -15,7 +13,7 @@ export const getServerSideProps = withSessionSsr(
         }
         return({
             redirect: {
-                destination: '/account/overview',
+                destination: '/admin/',
                 permanent: false
             }
         })
