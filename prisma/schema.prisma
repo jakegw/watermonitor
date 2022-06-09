@@ -10,5 +10,41 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
+  phone       String
+  name        String
+  communities Community[]
+}
+
+model Community {
+  id    Int      @id @default(autoincrement())
+  name  String
+  lat   Decimal? @db.Decimal(8, 6)
+  long  Decimal? @db.Decimal(9, 6)
+  users User[]
+}
+
+model Measurement {
+  id     Int      @id @default(autoincrement())
+  time   DateTime
+  Tank   Tank     @relation(fields: [tankId], references: [id])
+  tankId Int
+  level  Decimal
+
+}
+
+model Tank {
+  id           Int           @id @default(autoincrement())
+  name         String
+  measurements Measurement[]
+  lat          Decimal?      @db.Decimal(8, 6)
+  long         Decimal?      @db.Decimal(9, 6)
+  DataSource   DataSource[]
+}
+
+model DataSource {
+  id     Int    @id @default(autoincrement())
+  tank   Tank   @relation(fields: [tankId], references: [id])
+  tankId Int
+  phone  String
 }
