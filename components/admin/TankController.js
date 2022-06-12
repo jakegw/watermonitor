@@ -1,11 +1,11 @@
 export default function TankController() {
-    return (
-        <>
+  return (
+      <>
         <main className="container">
-            <Center>
-                <Tank/>
-            </Center>
+          <Center>
+            <Tank />
+          </Center>
         </main>
-        </>
-    )
+      </>
+  );
 }

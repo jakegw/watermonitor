@@ -1,5 +1,4 @@
-import {Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
-import NewUserModal from "../user/new";
+import {Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import ModifyCommunityModal from "./modify";
 import NewCommunityModal from "./new";
 
@@ -21,7 +20,7 @@ export default function CommunityController(props) {
                 {props.communities.map(community => (<Tr key={community.id}>
                   <Td>{community.id}</Td>
                   <Td>{community.name}</Td>
-                  <Td><ModifyCommunityModal id={community.id}/></Td>
+                  <Td><ModifyCommunityModal id={community.id} /></Td>
                 </Tr>))}
                 <Tr>
                   <Td></Td>
@@ -34,5 +33,5 @@ export default function CommunityController(props) {
           </TableContainer>
         </Box>
       </>
-  )
+  );
 }

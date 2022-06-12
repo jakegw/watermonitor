@@ -1,5 +1,8 @@
 import {
-  Button, FormControl, FormLabel, Input,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,11 +21,15 @@ export default function NewCommunityModal() {
     console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
     console.log(formData);
-    const response = await fetch('/api/admin/communities/new', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData)
-    })
+    const response = await fetch("/api/admin/communities/new", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formData),
+    });
+    if (response.ok) {
+      location.reload();
+
+    }
 
   };
 
