@@ -1,5 +1,6 @@
 import AdminLayout from "../../components/admin/AdminLayout";
-import UserController from "../../components/admin/user/UserController";
+import CommunityController from "../../components/admin/community/CommunityController";
+import MeasurementController from "../../components/admin/measurements/MeasurementController";
 import prisma from "../../lib/prisma";
 import {withSessionSsr} from "../../lib/session/withSession";
 
@@ -22,32 +23,25 @@ export const getServerSideProps = withSessionSsr(
         };
       }
 
-      const users = await prisma.User.findMany({
-        include: {
-          communities: {
-            select: {
-                name: true,
-            }
-          },
-        }
-      });
+      const measurements = await prisma.Measurement.findMany({},
+      );
 
 
       return {
         props: {
           user: user,
-          users: users,
+          measurements: measurements,
         },
 
       };
     },
 );
 
-export default function users(props) {
+export default function communities(props) {
   return (
       <>
-        <AdminLayout name={"Users"}>
-          <UserController users={props.users} />
+        <AdminLayout name={"Measurements"}>
+          <MeasurementController measurements={props.measurements} />
         </AdminLayout>
 
       </>

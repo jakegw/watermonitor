@@ -7,10 +7,7 @@ export default async function handler(req, res) {
   //  Error handling
 
   // console.log(req.body.communities)
-  let v = req.body.communities
-  v = v.map(x => ({'id': parseInt(x)}))
-  console.log(v)
-  const com = await prisma.User.update({
+  const com = await prisma.Tank.update({
     where: {
       id: parseInt(req.body.id),
     },
@@ -19,6 +16,7 @@ export default async function handler(req, res) {
       phone: req.body.phone,
       communities: {
         set: req.body.communities.map(x => ({'id': parseInt(x)}))
+
       }
     },
   });

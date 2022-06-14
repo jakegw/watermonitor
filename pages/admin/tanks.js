@@ -1,4 +1,5 @@
 import AdminLayout from "../../components/admin/AdminLayout";
+import TankController from "../../components/admin/tanks/TankController";
 import UserController from "../../components/admin/user/UserController";
 import prisma from "../../lib/prisma";
 import {withSessionSsr} from "../../lib/session/withSession";
@@ -22,13 +23,9 @@ export const getServerSideProps = withSessionSsr(
         };
       }
 
-      const users = await prisma.User.findMany({
+      const tanks = await prisma.Tank.findMany({
         include: {
-          communities: {
-            select: {
-                name: true,
-            }
-          },
+          communities: true,
         }
       });
 
@@ -36,7 +33,7 @@ export const getServerSideProps = withSessionSsr(
       return {
         props: {
           user: user,
-          users: users,
+          tanks: tanks,
         },
 
       };
@@ -46,8 +43,8 @@ export const getServerSideProps = withSessionSsr(
 export default function users(props) {
   return (
       <>
-        <AdminLayout name={"Users"}>
-          <UserController users={props.users} />
+        <AdminLayout name={"Water Tanks"}>
+          <TankController tanks={props.tanks} />
         </AdminLayout>
 
       </>

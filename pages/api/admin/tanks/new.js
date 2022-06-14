@@ -7,13 +7,14 @@ export default async function handler(req, res) {
   // console.log(req.session.user.id)
   console.log(body);
 
-  await prisma.User.create({
+
+  await prisma.Tank.create({
     data: {
       name: body.name,
       phone: body.phone,
       communities: {
         connect: req.body.communities.map(x => ({'id': parseInt(x)}))
-      }
+      },
     },
   });
 

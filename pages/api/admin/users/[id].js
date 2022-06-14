@@ -8,9 +8,17 @@ export default async function handler(req, res) {
   const com = await prisma.User.findUnique({
     where: {
       id: parseInt(req.query.id),
+
     },
+    include: {
+        communities: {
+            select: {
+                id: true,
+            }
+        }
+    }
   });
 
-
+  console.log(com)
   return res.status(200).json(com);
 }

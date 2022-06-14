@@ -1,5 +1,6 @@
 import {
-  Button, Checkbox,
+  Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -8,30 +9,34 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalOverlay, Stack,
+  ModalOverlay,
+  Stack,
   useDisclosure,
 } from "@chakra-ui/react";
 import {useState} from "react";
 
-export default function NewUserModal() {
+export default function NewTankModal() {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [communities, setCommunities] = useState([]);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
-
-  const addUser = async (e) => {
+  const newTank = async (e) => {
     e.preventDefault();
     console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
     console.log(formData);
-    const response = await fetch("/api/admin/users/new", {
+    const response = await fetch("/api/admin/tanks/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({...formData,
-        communities: selectedCommunities}),
+      body: JSON.stringify({
+        ...formData,
+        communities: selectedCommunities,
+      }),
     });
     if (response.ok) {
-        location.reload();
+      location.reload();
+
     }
+
   };
   const updateSelection = async (e) => {
     console.log(e.target.value);
@@ -41,23 +46,26 @@ export default function NewUserModal() {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
     console.log(selectedCommunities);
-  }
+  };
   const openModal = async (e) => {
     e.preventDefault();
-    setCommunities(await fetch(`/api/admin/communities/all`).then(res => res.json()))
+    const c = await fetch("/api/admin/communities/all").then(res => res.json());
+    console.log(c);
+    setCommunities(c);
     onOpen();
-  }
+  };
+
 
   return (
       <>
-        <Button onClick={openModal}>New User</Button>
+        <Button onClick={openModal}>New Tank</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>New User</ModalHeader>
+            <ModalHeader>New Tank</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <form onSubmit={addUser}>
+              <form onSubmit={newTank}>
                 <FormControl>
                   <FormLabel>Name: </FormLabel>
                   <Input id={"name"} name="name" type="text" />
@@ -66,18 +74,22 @@ export default function NewUserModal() {
                   <FormLabel>Phone: </FormLabel>
                   <Input id={"phone"} name="phone" type="tel" />
                 </FormControl>
-                <Stack>
-                  {communities.map((community) => {
-                    return (
-                        <Checkbox
-                            key={community.id}
-                            isChecked={selectedCommunities.includes(community.id.toString())}
-                            onChange={updateSelection}
-                            value={community.id}
-                        >{community.name}</Checkbox>
-                    )})
-                  }
-                </Stack>
+                <FormControl>
+                  <FormLabel>Community: </FormLabel>
+                  <Stack>
+                    {communities.map((community) => {
+                      return (
+                          <Checkbox
+                              key={community.id}
+                              isChecked={selectedCommunities.includes(community.id.toString())}
+                              onChange={updateSelection}
+                              value={community.id}
+                          >{community.name}</Checkbox>
+                      );
+                    })
+                    }
+                  </Stack>
+                </FormControl>
                 <Button type={"submit"}>Submit</Button>
               </form>
             </ModalBody>

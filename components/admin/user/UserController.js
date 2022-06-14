@@ -1,4 +1,4 @@
-import {Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import ModifyUserModal from "./modify";
 import NewUserModal from "./new";
 
@@ -23,7 +23,9 @@ export default function UserController(props) {
                     <Td>{user.id}</Td>
                     <Td>{user.name}</Td>
                     <Td>{user.phone}</Td>
-                    <Td></Td>
+                    <Td>{user.communities.map(c => (
+                        <Text>{c.name}</Text>
+                    ))}</Td>
                     <Td><ModifyUserModal id={user.id}/></Td>
                   </Tr>
               ))}
