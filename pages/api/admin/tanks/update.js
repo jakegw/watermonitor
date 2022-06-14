@@ -14,6 +14,7 @@ export default async function handler(req, res) {
     data: {
       name: req.body.name,
       phone: req.body.phone,
+      capacity: req.body.capacity,
       communities: {
         set: req.body.communities.map(x => ({'id': parseInt(x)}))
 

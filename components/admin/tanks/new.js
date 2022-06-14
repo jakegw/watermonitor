@@ -75,6 +75,10 @@ export default function NewTankModal() {
                   <Input id={"phone"} name="phone" type="tel" />
                 </FormControl>
                 <FormControl>
+                  <FormLabel>Capacity (L): </FormLabel>
+                  <Input id={"capacity"} name="capacity" type="number" />
+                </FormControl>
+                <FormControl>
                   <FormLabel>Community: </FormLabel>
                   <Stack>
                     {communities.map((community) => {

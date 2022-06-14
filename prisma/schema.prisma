@@ -30,7 +30,8 @@ model Measurement {
   time   DateTime
   Tank   Tank     @relation(fields: [tankId], references: [id])
   tankId Int
-  level  Decimal
+  volume  Float
+
 
 }
 
@@ -39,7 +40,6 @@ model Tank {
   name         String
   measurements Measurement[]
   communities  Community[]
-  lat          Decimal?      @db.Decimal(8, 6)
-  long         Decimal?      @db.Decimal(9, 6)
   phone        String
+  capacity     Float
 }

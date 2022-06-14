@@ -103,6 +103,10 @@ export default function ModifyTankModal(props) {
                     <FormLabel>Phone: </FormLabel>
                     <Input id={"phone"} name="phone" type="tel" />
                   </FormControl>
+                  <FormControl>
+                    <FormLabel>Capacity (L): </FormLabel>
+                    <Input id={"capacity"} name="capacity" type="number" />
+                  </FormControl>
                   <Stack>
                     {communities.map((community) => {
                       return (

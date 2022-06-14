@@ -16,6 +16,7 @@ export default function TankController(props) {
                   <Th>Tank ID</Th>
                   <Th>Name</Th>
                   <Th>Phone</Th>
+                  <Th>Capacity (L)</Th>
                   <Th>Communities</Th>
                   <Th>Modify</Th>
                 </Tr>
@@ -25,12 +26,14 @@ export default function TankController(props) {
                   <Td>{tank.id}</Td>
                   <Td>{tank.name}</Td>
                   <Td>{tank.phone}</Td>
+                  <Td>{tank.capacity}</Td>
                   <Td>{tank.communities.map(c => (
                         <Text key={c.id}>{c.name}</Text>
                     ))}</Td>
                   <Td><ModifyTankModal id={tank.id} /></Td>
                 </Tr>))}
                 <Tr>
+                  <Td></Td>
                   <Td></Td>
                   <Td></Td>
                   <Td></Td>
