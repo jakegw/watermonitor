@@ -38,7 +38,7 @@ export default function ModifyCommunityModal(props) {
     const formData = Object.fromEntries(new FormData(e.target).entries());
     console.log(formData);
     const response = await fetch("/api/admin/communities/update", {
-      method: "POST",
+      method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(formData),
     });
@@ -47,6 +47,19 @@ export default function ModifyCommunityModal(props) {
     }
 
   };
+
+  const deleteCommunity = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`/api/admin/communities/delete/`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({id: props.id}),
+
+    })
+    if (response.ok) {
+        location.reload();
+    }
+  }
 
   return (
       <>
@@ -69,7 +82,7 @@ export default function ModifyCommunityModal(props) {
                   <Flex>
                     <Button type={"submit"}>Submit</Button>
                     <Spacer />
-                    <Button colorScheme={"red"}>Delete</Button>
+                    <Button colorScheme={"red"} onClick={deleteCommunity}>Delete</Button>
                   </Flex>
 
                 </Stack>

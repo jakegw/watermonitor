@@ -1,4 +1,5 @@
 import {Center, Heading} from "@chakra-ui/react";
+import Banner from "../Banner";
 import HeaderButton from "../mini/HeaderButton";
 
 
@@ -16,11 +17,7 @@ export default function AdminHeader() {
 
   return (
       <>
-        <Center bg="#E2E8F0">
-          <Heading pt={5} pb={5} size="2xl">
-            Cape York Water Monitoring System
-          </Heading>
-        </Center>
+       <Banner />
 
         <Center bg="#E2E8F0">
           {

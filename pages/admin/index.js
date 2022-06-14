@@ -31,14 +31,8 @@ export const getServerSideProps = withSessionSsr(
 export default function AdminOverview(props) {
   return (
       <>
-        <Head>
-          <title>Overview</title>
-        </Head>
-        <AdminLayout>
-          <VStack>
-            <Heading>Overview</Heading>
+        <AdminLayout name={'Overview'}>
             <AdminOverviewController />
-          </VStack>
         </AdminLayout>
       </>
   );
