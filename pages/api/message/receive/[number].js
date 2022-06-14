@@ -6,6 +6,9 @@
 import prisma from "/lib/prisma";
 import isPhoneNum from "/lib/util/isPhoneNum";
 
+const critValue = 0.1;
+
+
 
 export default async function handler(req, res) {
 
@@ -52,11 +55,46 @@ export default async function handler(req, res) {
         }
       },
     });
+    console.log(parseInt(data[1]), "/", source[0].capacity)
+    if (parseInt(data[1]) / source[0].capacity < critValue) {
+        console.log("CRITICAL");
+        let numbers = await prisma.Tank.findUnique({
+            where: {
+                id: source[0].id
+            },
+            select: {
+                communities: {
+                    include: {
+                        users: {
+                            select: {
+                                phone: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+      // console.log(numbers.communities)
+      let mapped = numbers.communities.flatMap(x => [x.users.map(y => y.phone)])
+      // let mapped = numbers.communities.map(x => x.users.map(y => y.phone))
+        let flattened = mapped.flat()
+        console.log(flattened)
+      let uniqueNums = flattened.filter((c, index) => {
+        return flattened.indexOf(c) === index;
+      });
+        for (const element of uniqueNums) {
+          await fetch(`http://localhost:3000/api/message/send/${element}`, {
+            method: "POST",
+            headers: {},
+            body: `Tank ${source[0].name} is low!`
+          })
+        }
+    }
   }
 
-
-  console.log(source.length);
-  console.log(user.length);
+  //
+  // console.log(source.length);
+  // console.log(user.length);
 
   return res.status(200).send("👍");
 }

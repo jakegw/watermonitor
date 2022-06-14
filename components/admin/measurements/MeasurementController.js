@@ -9,7 +9,7 @@ export default function MeasurementController(props) {
             <Thead>
                 <Tr>
                     <Th>Measurement ID</Th>
-                    <Th>Tank ID</Th>
+                    <Th>Tank Name</Th>
                     <Th>Date</Th>
                     <Th>Volume</Th>
                     <Th>Modify</Th>
@@ -19,8 +19,8 @@ export default function MeasurementController(props) {
                 {props.measurements.map(measurement => (
                     <Tr key={measurement.id}>
                         <Td>{measurement.id}</Td>
-                        <Td>{measurement.tank.id}</Td>
-                        <Td>{measurement.date}</Td>
+                        <Td>{measurement.Tank.name}</Td>
+                        <Td>{measurement.time.toLocaleString()}</Td>
                         <Td>{measurement.volume}</Td>
                         {/*<Td><ModifyMeasurementModal id={measurement.id} /></Td>*/}
                     </Tr>

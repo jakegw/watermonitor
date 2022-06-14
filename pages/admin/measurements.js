@@ -23,10 +23,19 @@ export const getServerSideProps = withSessionSsr(
         };
       }
 
-      const measurements = await prisma.Measurement.findMany({},
+      const measurements = await prisma.Measurement.findMany({
+        include: {
+          Tank:{
+            select: {
+                name: true,
+              id: true,
+            }
+          }
+        }
+          },
       );
 
-
+      console.log(measurements[0].time.toTimeString())
       return {
         props: {
           user: user,
