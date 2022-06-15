@@ -101,11 +101,11 @@ export default function ModifyTankModal(props) {
                   </FormControl>
                   <FormControl>
                     <FormLabel>Phone: </FormLabel>
-                    <Input id={"phone"} name="phone" type="tel" />
+                    <Input id={"phone"} name="phone" type="tel" defaultValue={data.phone} />
                   </FormControl>
                   <FormControl>
                     <FormLabel>Capacity (L): </FormLabel>
-                    <Input id={"capacity"} name="capacity" type="number" />
+                    <Input id={"capacity"} name="capacity" type="number" defaultValue={data.capacity}/>
                   </FormControl>
                   <Stack>
                     {communities.map((community) => {

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     data: {
       name: body.name,
       phone: body.phone,
-      capacity: body.capacity,
+      capacity: parseInt(body.capacity),
       communities: {
         connect: req.body.communities.map(x => ({'id': parseInt(x)}))
       },
