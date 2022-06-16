@@ -35,11 +35,11 @@ export const getServerSideProps = withSessionSsr(
           },
       );
 
-      console.log(measurements[0].time.toTimeString())
+      //console.log(measurements[0].time.toTimeString())
       return {
         props: {
           user: user,
-          measurements: measurements,
+          measurements: measurements.reverse(),
         },
 
       };

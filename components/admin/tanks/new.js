@@ -21,9 +21,9 @@ export default function NewTankModal() {
   const [selectedCommunities, setSelectedCommunities] = useState([]);
   const newTank = async (e) => {
     e.preventDefault();
-    console.log("test");
+    //console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    //console.log(formData);
     const response = await fetch("/api/admin/tanks/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -39,18 +39,18 @@ export default function NewTankModal() {
 
   };
   const updateSelection = async (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     if (selectedCommunities.includes(e.target.value)) {
       setSelectedCommunities(selectedCommunities.filter(c => c !== e.target.value));
     } else {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
-    console.log(selectedCommunities);
+    //console.log(selectedCommunities);
   };
   const openModal = async (e) => {
     e.preventDefault();
     const c = await fetch("/api/admin/communities/all").then(res => res.json());
-    console.log(c);
+    //console.log(c);
     setCommunities(c);
     onOpen();
   };
@@ -79,7 +79,7 @@ export default function NewTankModal() {
                   <Input id={"capacity"} name="capacity" type="number" />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Community: </FormLabel>
+                  <FormLabel>Communities: </FormLabel>
                   <Stack>
                     {communities.map((community) => {
                       return (

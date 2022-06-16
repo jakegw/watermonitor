@@ -12,6 +12,7 @@ export default function MeasurementController(props) {
                     <Th>Tank Name</Th>
                     <Th>Date</Th>
                     <Th>Volume</Th>
+                    <Th>Quality</Th>
                     <Th>Modify</Th>
                 </Tr>
             </Thead>
@@ -22,6 +23,7 @@ export default function MeasurementController(props) {
                         <Td>{measurement.Tank.name}</Td>
                         <Td>{measurement.time.toLocaleString()}</Td>
                         <Td>{measurement.volume}</Td>
+                        <Td>{measurement.quality && (measurement.quality + "%")}</Td>
                         {/*<Td><ModifyMeasurementModal id={measurement.id} /></Td>*/}
                     </Tr>
                 ))}

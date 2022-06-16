@@ -3,11 +3,11 @@ import {withSessionRoute} from "../../lib/session/withSession";
 export default withSessionRoute(loginRoute);
 
 async function loginRoute(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
 
-  console.log(process.env.ADMIN_PASS);
+  //console.log(process.env.ADMIN_PASS);
   if (req.body.user === "admin" && req.body.pass === process.env.ADMIN_PASS) {
-    console.log("Logged in as admin");
+    //console.log("Logged in as admin");
     req.session.user = {
       id: 0,
       admin: true,

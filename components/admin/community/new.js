@@ -18,9 +18,9 @@ export default function NewCommunityModal() {
 
   const newCommunity = async (e) => {
     e.preventDefault();
-    console.log("test");
+    // console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    // console.log(formData);
     const response = await fetch("/api/admin/communities/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},

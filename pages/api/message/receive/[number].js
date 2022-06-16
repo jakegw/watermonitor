@@ -9,7 +9,6 @@ import isPhoneNum from "/lib/util/isPhoneNum";
 const critValue = 0.1;
 
 
-
 export default async function handler(req, res) {
 
   if (req.body.length > 160 || !isPhoneNum(req.query.number)) {
@@ -17,8 +16,8 @@ export default async function handler(req, res) {
   }
 
   const message = req.body;
-  const origin = req.query.number;
-  console.log(origin + ":", message);
+  const origin =  req.query.number;
+  //console.log(origin + ":", message);
 
 
   // TODO
@@ -37,64 +36,78 @@ export default async function handler(req, res) {
   });
 
   if (source.length === 0 && user.length === 0) {
-    console.log("👎");
+    //console.log("👎");
     return res.status(400).send("Unknown source");
   }
 
   if (source.length > 0) {
-    console.log("👍");
+    // console.log("👍");
     let data = req.body.split(" ");
     await prisma.Measurement.create({
       data: {
         time: new Date(data[0]),
         volume: parseInt(data[1]),
+        quality: parseFloat(data[2]),
         Tank: {
-            connect: {
-                id: source[0].id
-            }
-        }
+          connect: {
+            id: source[0].id,
+          },
+        },
       },
     });
-    console.log(parseInt(data[1]), "/", source[0].capacity)
-    if (parseInt(data[1]) / source[0].capacity < critValue) {
-        console.log("CRITICAL");
-        let numbers = await prisma.Tank.findUnique({
-            where: {
-                id: source[0].id
+
+    let numbers = await prisma.Tank.findUnique({
+      where: {
+        id: source[0].id,
+      },
+      select: {
+        communities: {
+          include: {
+            users: {
+              select: {
+                phone: true,
+              },
             },
-            select: {
-                communities: {
-                    include: {
-                        users: {
-                            select: {
-                                phone: true
-                            }
-                        }
-                    }
-                }
-            }
-        })
-      // console.log(numbers.communities)
-      let mapped = numbers.communities.flatMap(x => [x.users.map(y => y.phone)])
-      // let mapped = numbers.communities.map(x => x.users.map(y => y.phone))
-        let flattened = mapped.flat()
-        console.log(flattened)
-      let uniqueNums = flattened.filter((c, index) => {
-        return flattened.indexOf(c) === index;
-      });
-        for (const element of uniqueNums) {
-          await fetch(`http://localhost:3000/api/message/send/${element}`, {
-            method: "POST",
-            headers: {},
-            body: `Tank ${source[0].name} is low!`
-          })
-        }
+          },
+        },
+      },
+    });
+    // console.log(numbers.communities)
+    let mapped = numbers.communities.flatMap(x => [x.users.map(y => y.phone)]);
+    let flattened = mapped.flat();
+    // console.log(flattened);
+    let uniqueNums = flattened.filter((c, index) => {
+      return flattened.indexOf(c) === index;
+    });
+    // console.log(parseInt(data[1]), "/", source[0].capacity);
+    if (parseInt(data[1]) / source[0].capacity < critValue) {
+      console.log("CRITICAL");
+
+
+      for (const element of uniqueNums) {
+        await fetch(`http://localhost:3000/api/message/send/${element}`, {
+          method: "POST",
+          headers: {},
+          body: `Tank ${source[0].name} is low!`,
+        });
+      }
+
+      //console.log(data[2]);
     }
+    if (parseFloat(data[2]) < 98) {
+      //console.log("water quality is low");
+      for (const element of uniqueNums) {
+        await fetch(`http://localhost:3000/api/message/send/${element}`, {
+          method: "POST",
+          headers: {},
+          body: `Tank ${source[0].name} is low quality!`,
+        });
+      }
+    }
+    //
+    // console.log(source.length);
+    // console.log(user.length);
+
+    return res.status(200).send("👍");
   }
-
-  //
-  // console.log(source.length);
-  // console.log(user.length);
-
-  return res.status(200).send("👍");
 }

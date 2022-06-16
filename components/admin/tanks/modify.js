@@ -26,26 +26,26 @@ export default function ModifyTankModal(props) {
   const [communities, setCommunities] = useState([]);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
   const updateSelection = async (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     if (selectedCommunities.includes(e.target.value)) {
       setSelectedCommunities(selectedCommunities.filter(c => c !== e.target.value));
     } else {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
-    console.log(selectedCommunities);
+    //console.log(selectedCommunities);
   }
 
   const openModal = async (e) => {
     e.preventDefault();
     const c = await fetch(`/api/admin/communities/all`).then(res => res.json());
     const t = await fetch(`/api/admin/tanks/${props.id}`).then(res => res.json());
-    console.log(t)
+    //console.log(t)
     let mapped = t.communities
     mapped = mapped.map(co => (co.id.toString()))
-    console.log(mapped)
+    //console.log(mapped)
     setSelectedCommunities(mapped);
 
-    console.log(c);
+    //console.log(c);
     setData(t);
     setCommunities(c);
     onOpen();
@@ -53,9 +53,9 @@ export default function ModifyTankModal(props) {
 
   const modifyTank = async (e) => {
     e.preventDefault();
-    console.log("test");
+    //console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    //console.log(formData);
     const response = await fetch("/api/admin/tanks/update", {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
@@ -107,18 +107,21 @@ export default function ModifyTankModal(props) {
                     <FormLabel>Capacity (L): </FormLabel>
                     <Input id={"capacity"} name="capacity" type="number" defaultValue={data.capacity}/>
                   </FormControl>
-                  <Stack>
-                    {communities.map((community) => {
-                      return (
-                          <Checkbox
-                              key={community.id}
-                              isChecked={selectedCommunities.includes(community.id.toString())}
-                              onChange={updateSelection}
-                              value={community.id}
-                          >{community.name}</Checkbox>
-                      )})
-                    }
-                  </Stack>
+                  <FormControl>
+                    <FormLabel>Communities: </FormLabel>
+                    <Stack>
+                      {communities.map((community) => {
+                        return (
+                            <Checkbox
+                                key={community.id}
+                                isChecked={selectedCommunities.includes(community.id.toString())}
+                                onChange={updateSelection}
+                                value={community.id}
+                            >{community.name}</Checkbox>
+                        )})
+                      }
+                    </Stack>
+                  </FormControl>
                   <Flex>
                     <Button type={"submit"}>Submit</Button>
                     <Spacer />

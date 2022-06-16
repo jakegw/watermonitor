@@ -33,6 +33,7 @@ export default function UserController(props) {
                 <Td></Td>
                 <Td></Td>
                 <Td></Td>
+                <Td></Td>
                 <Td><NewUserModal /></Td>
               </Tr>
 

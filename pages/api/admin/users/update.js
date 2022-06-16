@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   // console.log(req.body.communities)
   let v = req.body.communities
   v = v.map(x => ({'id': parseInt(x)}))
-  console.log(v)
+  //console.log(v)
   const com = await prisma.User.update({
     where: {
       id: parseInt(req.body.id),

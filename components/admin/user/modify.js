@@ -1,5 +1,6 @@
 import {
-  Button, Checkbox,
+  Button,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -11,7 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Spacer,
-  Stack, Text, useCheckboxGroup,
+  Stack,
   useDisclosure,
 } from "@chakra-ui/react";
 import {useState} from "react";
@@ -26,42 +27,43 @@ export default function ModifyUserModal(props) {
 
 
   const updateSelection = async (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     if (selectedCommunities.includes(e.target.value)) {
       setSelectedCommunities(selectedCommunities.filter(c => c !== e.target.value));
     } else {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
-    console.log(selectedCommunities);
-  }
+    //console.log(selectedCommunities);
+  };
 
   const openModal = async (e) => {
     e.preventDefault();
     const u = await fetch(`/api/admin/users/${props.id}`).then(res => res.json());
     const c = await fetch(`/api/admin/communities/all`).then(res => res.json());
-    let mapped = u.communities
-    mapped = mapped.map(co => (co.id.toString()))
-    console.log(mapped)
+    let mapped = u.communities;
+    mapped = mapped.map(co => (co.id.toString()));
+    //console.log(mapped)
     setSelectedCommunities(mapped);
 
 
-
     setData(u);
-    setCommunities(c)
+    setCommunities(c);
 
     onOpen();
   };
 
   const modifyUser = async (e) => {
     e.preventDefault();
-    console.log("test");
+    //console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    //console.log(formData);
     const response = await fetch("/api/admin/users/update", {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({...formData,
-        communities: selectedCommunities}),
+      body: JSON.stringify({
+        ...formData,
+        communities: selectedCommunities,
+      }),
     });
     if (response.ok) {
       location.reload();
@@ -76,11 +78,11 @@ export default function ModifyUserModal(props) {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({id: props.id}),
 
-    })
+    });
     if (response.ok) {
       location.reload();
     }
-  }
+  };
 
   return (
       <>
@@ -104,8 +106,10 @@ export default function ModifyUserModal(props) {
                     <FormLabel>Phone Number: </FormLabel>
                     <Input id={"phone"} name="phone" type="phone" defaultValue={data.phone} />
                   </FormControl>
+                  <FormControl>
+                    <FormLabel>Communities: </FormLabel>
 
-                  <Stack>
+                    <Stack>
                       {communities.map((community) => {
                         return (
                             <Checkbox
@@ -114,10 +118,11 @@ export default function ModifyUserModal(props) {
                                 onChange={updateSelection}
                                 value={community.id}
                             >{community.name}</Checkbox>
-                        )})
+                        );
+                      })
                       }
-                  </Stack>
-
+                    </Stack>
+                  </FormControl>
                   <Flex>
                     <Button type={"submit"}>Submit</Button>
                     <Spacer />

@@ -20,9 +20,9 @@ export default function NewUserModal() {
 
   const addUser = async (e) => {
     e.preventDefault();
-    console.log("test");
+    //console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    //console.log(formData);
     const response = await fetch("/api/admin/users/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -34,13 +34,13 @@ export default function NewUserModal() {
     }
   };
   const updateSelection = async (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     if (selectedCommunities.includes(e.target.value)) {
       setSelectedCommunities(selectedCommunities.filter(c => c !== e.target.value));
     } else {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
-    console.log(selectedCommunities);
+    //console.log(selectedCommunities);
   }
   const openModal = async (e) => {
     e.preventDefault();

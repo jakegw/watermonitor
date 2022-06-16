@@ -1,5 +1,8 @@
+import {Center, Stack, Text} from "@chakra-ui/react";
 import Head from "next/head";
 import LoginForm from "../components/admin/LoginForm";
+import Banner from "../components/Banner";
+import HeaderButton from "../components/mini/HeaderButton";
 import {withSessionSsr} from "../lib/session/withSession";
 
 
@@ -26,10 +29,12 @@ export default function login() {
   return (
       <>
         <Head>
-          <title>Login</title>
+            <title>Login</title>
         </Head>
-
-        <LoginForm />
+        <Banner />
+        <Center>
+          <LoginForm/>
+        </Center>
       </>
   );
 }

@@ -26,11 +26,12 @@ model Community {
 }
 
 model Measurement {
-  id     Int      @id @default(autoincrement())
-  time   DateTime
-  Tank   Tank     @relation(fields: [tankId], references: [id])
-  tankId Int
-  volume  Float
+  id      Int      @id @default(autoincrement())
+  time    DateTime
+  Tank    Tank     @relation(fields: [tankId], references: [id])
+  tankId  Int
+  volume  Float?
+  quality Float?
 
 
 }

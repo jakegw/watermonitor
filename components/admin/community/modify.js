@@ -27,16 +27,16 @@ export default function ModifyCommunityModal(props) {
   const openModal = async (e) => {
     e.preventDefault();
     const c = await fetch(`/api/admin/communities/${props.id}`).then(res => res.json());
-    console.log(c);
+    // console.log(c);
     setData(c);
     onOpen();
   };
 
   const modifyCommunity = async (e) => {
     e.preventDefault();
-    console.log("test");
+    // console.log("test");
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(formData);
+    // console.log(formData);
     const response = await fetch("/api/admin/communities/update", {
       method: "PUT",
       headers: {"Content-Type": "application/json"},

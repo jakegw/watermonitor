@@ -2,7 +2,7 @@ import prisma from "/lib/prisma";
 
 
 export default async function handler(req, res) {
-  console.log("ok")
+  //console.log("ok")
   // TODO
   //  Error handling
   let com

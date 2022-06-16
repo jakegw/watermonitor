@@ -1,14 +1,23 @@
+import {Center, Stack, Text} from "@chakra-ui/react";
 import Head from "next/head";
-import Image from "next/image";
 import Banner from "../components/Banner";
 import HeaderButton from "../components/mini/HeaderButton";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
       <>
-        <Banner/>
-        <HeaderButton text={'Admin Panel'} href={'/login'}/>
+        <Head>
+            <title>Home</title>
+        </Head>
+        <Banner />
+        <Center>
+          <Stack>
+            <HeaderButton text={"Admin Panel"} href={"/login"} />
+            <Text>{`This is a tool designed to aid in monitoring local water sources.
+                To receive alerts please contact the area administrator.`}</Text>
+
+          </Stack>
+        </Center>
       </>
-)
+  );
 }
