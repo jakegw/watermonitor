@@ -24,7 +24,7 @@ export default function UserController(props) {
                     <Td>{user.name}</Td>
                     <Td>{user.phone}</Td>
                     <Td>{user.communities.map(c => (
-                        <Text>{c.name}</Text>
+                        <Text key={c.id}>{c.name}</Text>
                     ))}</Td>
                     <Td><ModifyUserModal id={user.id}/></Td>
                   </Tr>

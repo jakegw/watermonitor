@@ -1,5 +1,6 @@
 import {
-  Button, Checkbox,
+  Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -8,7 +9,8 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalOverlay, Stack,
+  ModalOverlay,
+  Stack,
   useDisclosure,
 } from "@chakra-ui/react";
 import {useState} from "react";
@@ -26,11 +28,13 @@ export default function NewUserModal() {
     const response = await fetch("/api/admin/users/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({...formData,
-        communities: selectedCommunities}),
+      body: JSON.stringify({
+        ...formData,
+        communities: selectedCommunities,
+      }),
     });
     if (response.ok) {
-        location.reload();
+      location.reload();
     }
   };
   const updateSelection = async (e) => {
@@ -41,12 +45,12 @@ export default function NewUserModal() {
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
     //console.log(selectedCommunities);
-  }
+  };
   const openModal = async (e) => {
     e.preventDefault();
-    setCommunities(await fetch(`/api/admin/communities/all`).then(res => res.json()))
+    setCommunities(await fetch(`/api/admin/communities/all`).then(res => res.json()));
     onOpen();
-  }
+  };
 
   return (
       <>
@@ -66,18 +70,23 @@ export default function NewUserModal() {
                   <FormLabel>Phone: </FormLabel>
                   <Input id={"phone"} name="phone" type="tel" />
                 </FormControl>
-                <Stack>
-                  {communities.map((community) => {
-                    return (
-                        <Checkbox
-                            key={community.id}
-                            isChecked={selectedCommunities.includes(community.id.toString())}
-                            onChange={updateSelection}
-                            value={community.id}
-                        >{community.name}</Checkbox>
-                    )})
-                  }
-                </Stack>
+                <FormControl>
+                  <FormLabel>Communities: </FormLabel>
+
+                  <Stack>
+                    {communities.map((community) => {
+                      return (
+                          <Checkbox
+                              key={community.id}
+                              isChecked={selectedCommunities.includes(community.id.toString())}
+                              onChange={updateSelection}
+                              value={community.id}
+                          >{community.name}</Checkbox>
+                      );
+                    })
+                    }
+                  </Stack>
+                </FormControl>
                 <Button type={"submit"}>Submit</Button>
               </form>
             </ModalBody>
