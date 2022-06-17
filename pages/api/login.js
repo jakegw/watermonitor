@@ -5,7 +5,7 @@ export default withSessionRoute(loginRoute);
 async function loginRoute(req, res) {
   //console.log(req.body);
 
-  //console.log(process.env.ADMIN_PASS);
+  // If admin user and pass correct then set a session cookie
   if (req.body.user === "admin" && req.body.pass === process.env.ADMIN_PASS) {
     //console.log("Logged in as admin");
     req.session.user = {

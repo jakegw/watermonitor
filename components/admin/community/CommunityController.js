@@ -2,6 +2,8 @@ import {Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/r
 import ModifyCommunityModal from "./modify";
 import NewCommunityModal from "./new";
 
+// This function returns the table of communities and embeds the modals for creating and modifying them.
+
 export default function CommunityController(props) {
   return (
       <>

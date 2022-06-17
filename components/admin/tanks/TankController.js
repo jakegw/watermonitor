@@ -4,6 +4,8 @@ import ModifyCommunityModal from "./modify";
 import NewTankModal from "./new";
 import NewCommunityModal from "./new";
 
+// This function returns the table of tanks and embeds the modals for creating and modifying them.
+
 export default function TankController(props) {
   return (
       <>

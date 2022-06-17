@@ -1,7 +1,10 @@
 //This endpoint will be called when the system receives a text message
 
 // Message Structure:
-//
+// ISO8601 volume quality%
+// e.g. 2022-06-14T07:58:30.996+0200 250 99%
+
+// Can be easily expanded to include other data
 
 import prisma from "/lib/prisma";
 import isPhoneNum from "/lib/util/isPhoneNum";
@@ -24,6 +27,10 @@ export default async function handler(req, res) {
   //  Process messages here
 
   // If comes from a datasource then add to db
+  // Checks what the number belongs to
+  // If it is a tank then the measurement will be added and then the parameters checked
+  // If parameter is critical then send a message to the users
+
   const source = await prisma.Tank.findMany({
     where: {
       phone: origin,
@@ -73,6 +80,8 @@ export default async function handler(req, res) {
       },
     });
     // console.log(numbers.communities)
+
+    // Take the 2d array of numbers and turn it into a 1d array and then remove duplicates
     let mapped = numbers.communities.flatMap(x => [x.users.map(y => y.phone)]);
     let flattened = mapped.flat();
     // console.log(flattened);

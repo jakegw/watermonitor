@@ -16,6 +16,10 @@ import {
 } from "@chakra-ui/react";
 import {useState} from "react";
 
+
+
+// This function returns a button that, when clicked, fetches the data for the Tank and allows the user to modify it.
+
 export default function ModifyTankModal(props) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [name, setName] = useState("test");
@@ -28,8 +32,10 @@ export default function ModifyTankModal(props) {
   const updateSelection = async (e) => {
     //console.log(e.target.value);
     if (selectedCommunities.includes(e.target.value)) {
+      //Selectedcommunities is an array, so if it is already in the array it gets filtered out
       setSelectedCommunities(selectedCommunities.filter(c => c !== e.target.value));
     } else {
+      // If not in the array then gets added
       setSelectedCommunities([...selectedCommunities, e.target.value]);
     }
     //console.log(selectedCommunities);

@@ -5,6 +5,8 @@ import {withSessionSsr} from "../../lib/session/withSession";
 
 
 export const getServerSideProps = withSessionSsr(
+    // Get server side props verifies if the user is an admin and then fetches the data
+
     async function getServerSideProps({req}) {
       const user = req.session.user;
       if (typeof user === "undefined") {

@@ -3,6 +3,9 @@ import Head from "next/head";
 import Banner from "../components/Banner";
 import HeaderButton from "../components/mini/HeaderButton";
 
+
+// Overview page detailing to the user about the system
+// More needs to be added to this page
 export default function Home() {
   return (
       <>

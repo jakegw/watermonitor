@@ -1,7 +1,8 @@
 // TODO
-//  Restrict to admin users
 //  Verify phone is valid
 
+
+// Creates a new tank
 export default async function handler(req, res) {
   const body = req.body;
   // console.log(req.session.user.id)

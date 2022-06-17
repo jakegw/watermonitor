@@ -1,6 +1,6 @@
 import prisma from "/lib/prisma";
 
-
+// Updates an existing community
 export default async function handler(req, res) {
 
   // TODO

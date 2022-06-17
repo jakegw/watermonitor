@@ -1,5 +1,8 @@
 import isPhoneNum from "/lib/util/isPhoneNum";
 
+
+// Placeholder function for sending a message to a number
+// Should be replaced with a real SMS API in the future
 export default function handler(req, res) {
 
   if (req.body.length > 160 || !isPhoneNum(req.query.number)) {

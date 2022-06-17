@@ -1,6 +1,7 @@
 import {Button} from "@chakra-ui/react";
 import Link from "next/link";
 
+// Reusable header button to maintain styling consistency.
 export default function HeaderButton({text, href}) {
   return (
       <Link href={href} passHref>

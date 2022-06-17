@@ -6,6 +6,7 @@ import HeaderButton from "../components/mini/HeaderButton";
 import {withSessionSsr} from "../lib/session/withSession";
 
 
+// If the users is already logged in then redirect to the overview page
 export const getServerSideProps = withSessionSsr(
     async function getServerSideProps({req, res}) {
       const user = req.session.user;

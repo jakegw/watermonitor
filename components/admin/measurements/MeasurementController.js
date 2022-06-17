@@ -1,5 +1,7 @@
 import {Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 
+// This function returns the table of communities.
+
 export default function MeasurementController(props) {
   return (
     <>

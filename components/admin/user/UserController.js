@@ -2,6 +2,7 @@ import {Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakr
 import ModifyUserModal from "./modify";
 import NewUserModal from "./new";
 
+// This function returns the table of users and embeds the modals for creating and modifying them.
 export default function UserController(props) {
   return (
       <Box>

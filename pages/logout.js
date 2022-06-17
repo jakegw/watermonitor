@@ -3,8 +3,7 @@ export async function getStaticProps() {
     redirect: {
       destination: "/api/logout",
       permanent: false,
-    }, // will be passed to the page component as props
-  };
+    }, };
 }
 
 

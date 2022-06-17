@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
+// This function returns a button that, when clicked, opens a modal that allows the user to create a new community.
 export default function NewCommunityModal() {
   const {isOpen, onOpen, onClose} = useDisclosure();
 

@@ -1,6 +1,6 @@
 import prisma from "/lib/prisma";
 
-
+// Deletes community by id
 export default async function handler(req, res) {
 
   // TODO

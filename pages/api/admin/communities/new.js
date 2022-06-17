@@ -1,3 +1,4 @@
+// Creates community
 export default async function handler(req, res) {
   const body = req.body;
   // console.log(req.session.user.id)

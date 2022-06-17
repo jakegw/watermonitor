@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import {useState} from "react";
 
+// This function returns a button that, when clicked, fetches the data for the community and allows the user to modify it.
 export default function ModifyCommunityModal(props) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [name, setName] = useState("test");

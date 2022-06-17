@@ -15,6 +15,9 @@ import {
 } from "@chakra-ui/react";
 import {useState} from "react";
 
+
+// This function returns a button that, when clicked, opens a modal that allows the user to create a new tank.
+
 export default function NewTankModal() {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [communities, setCommunities] = useState([]);

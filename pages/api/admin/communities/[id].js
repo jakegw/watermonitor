@@ -1,6 +1,7 @@
 import prisma from "/lib/prisma";
 
-
+// Gets community by id
+// If id is 'all', returns all communities
 export default async function handler(req, res) {
   //console.log("ok")
   // TODO
